@@ -1,27 +1,35 @@
 import { useState } from "react";
-
-// eslint-disable-next-line react/prop-types
-const ItemMessage = ({ message }) => <p className="text-white">{message}</p>;
+import { TaskItem } from "./components/taskItem";
 
 export const App = () => {
-    const [messageList] = useState(["Hello World", "Hi", "How are you?"]);
-    const [currentMessage, setCurrentMessage] = useState(messageList[0]);
-
-    const handleChangeMessage = () => {
-        setCurrentMessage(
-            messageList[Math.floor(Math.random() * messageList.length)],
-        );
-    };
-
+    const [taskList] = useState([
+        {
+            id: 1,
+            message: "Hello World",
+            isCompleted: false,
+        },
+        {
+            id: 2,
+            message: "Hi",
+            isCompleted: true,
+        },
+        {
+            id: 3,
+            message: "How are you?",
+            isCompleted: false,
+        },
+    ]);
     return (
-        <div className="flex h-screen flex-col items-center justify-center gap-4 bg-blue-500 text-2xl text-white">
-            <ItemMessage message={currentMessage} />
-            <button
+        <div className="flex h-screen flex-col gap-4 bg-zinc-900 p-8 text-2xl text-white">
+            {taskList.map((task) => (
+                <TaskItem task={task} key={task.id} />
+            ))}
+            {/* <button
                 onClick={handleChangeMessage}
                 className="rounded-md bg-green-500 p-2 text-xl font-semibold text-white"
             >
                 Change Message
-            </button>
+            </button> */}
         </div>
     );
 };
